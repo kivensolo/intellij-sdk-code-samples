@@ -1,0 +1,31 @@
+<!--templates 的配置文件，通过设置导出后，再引入使用，但是context是需要自己设置-->
+
+
+<templateSet group="Markdown">
+<!-- 新的超链接引用，通过输入`{<TAB>`，将插入以下模板:`[TEXT](LINK)END` -->
+  <template name="{"
+            value="[$TEXT$]($LINK$)$END$"
+            description="SDK: New link reference"
+            toReformat="false"
+            toShortenFQNames="false">
+    <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true"/>
+    <variable name="LINK" expression="complete()" defaultValue="" alwaysStopAt="true"/>
+    <!-- 当前模板生效的上下文声明   -->
+    <context>
+      <option name="MARKDOWN" value="true"/>
+    </context>
+  </template>
+
+<!-- 宏定义，转换标题单词的首字母为答谢 -->
+  <template name="mc"
+            value="$TITLE$"
+            description="SDK: Convert to title case"
+            toReformat="true"
+            toShortenFQNames="false">
+    <variable name="TITLE" expression="titleCase(SELECTION)" defaultValue="the quick brown fox" alwaysStopAt="true" />
+    <!-- 当前模板生效的上下文声明   -->
+    <context>
+      <option name="MARKDOWN" value="true" />
+    </context>
+  </template>
+</templateSet>

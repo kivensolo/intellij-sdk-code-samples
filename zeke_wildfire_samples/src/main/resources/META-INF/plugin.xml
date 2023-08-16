@@ -1,0 +1,80 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.intellij.wildfire</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Wildfire Samples</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="760553478@qq.com" url="https://github.com/kivensolo">GitHub</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+<!--    <description></description>-->
+
+    <!-- 基础平台模块依赖 -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <!-- EP: 插件定义的扩展点.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 编辑器中文本输入相关行为的处理扩展 -->
+        <typedHandler implementation="org.intellij.samples.editor.MyTypedHandler"/>
+
+        <!-- 自定义Markdown的liveTemplates扩展       -->
+        <defaultLiveTemplates file="/liveTemplates/Markdown.xml"/>
+        <!-- >=2022.3 就需要contextId  -->
+        <liveTemplateContext
+                contextId="MARKDOWN"
+                implementation="org.intellij.samples.live_templates.MarkdownContext"/>
+
+        <liveTemplateMacro implementation="org.intellij.samples.live_templates.TitleCaseMacro"/>
+
+    </extensions>
+
+
+    <actions>
+
+        <!--  Editor中右键替换所选字符的Action      -->
+        <action
+                id="EditorBasics.EditorIllustrationAction"
+                class="org.intellij.samples.editor.EditorIllustrationAction"
+                text="Editor Replace Text"
+                description="Replaces selected text with 'Replacement'."
+                icon="SdkIcons.Sdk_default_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <!--  Editor中使用ActionHandler实现插入符号的克隆操作(光标复制)      -->
+        <action
+                id="EditorBasics.EditorHandlerIllustration"
+                class="org.intellij.samples.editor.EditorHandlerIllustration"
+                text="Editor Add Caret"
+                description="Adds a second caret below the existing one."
+                icon="SdkIcons.Sdk_default_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <!--   展示主插入符的位置信息     -->
+        <action
+                id="EditorBasics.EditorAreaIllustration"
+                class="org.intellij.samples.editor.EditorAreaIllustration"
+                text="Caret Position"
+                description="Reports information about the caret position."
+                icon="SdkIcons.Sdk_default_icon">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <!-- 自定义action分组 -->
+        <group id="WildfirePlugin.GreetingMenu" text="WF_Greeting" description="Greeting menu">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="WildfirePlugin.Hello"
+                    class="org.intellij.samples.action.HelloAction"
+                    text="Hello"
+                    description="Says hello"/>
+        </group>
+    </actions>
+</idea-plugin>
