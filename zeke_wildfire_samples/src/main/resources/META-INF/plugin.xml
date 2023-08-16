@@ -69,12 +69,18 @@
         </action>
 
         <!-- 自定义action分组 -->
-        <group id="WildfirePlugin.GreetingMenu" text="WF_Greeting" description="Greeting menu">
+        <group id="WildfirePlugin.GreetingMenu" text="Sapmles" description="Greeting menu">
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="WildfirePlugin.Hello"
                     class="org.intellij.samples.action.HelloAction"
                     text="Hello"
                     description="Says hello"/>
+
+            <!--   PSI导航基础Demo   -->
+            <action id="PsiNavigationDemo"
+                    class="org.intellij.samples.psi.PsiNavigationDemoAction"
+                    text="PSI Navigation Demo...">
+            </action>
         </group>
     </actions>
 </idea-plugin>

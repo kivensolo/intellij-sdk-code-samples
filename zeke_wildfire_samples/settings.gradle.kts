@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "z_wildfire_samples"
+//rootProject.name = "zeke_wildfire_samples"
