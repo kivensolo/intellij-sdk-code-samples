@@ -35,6 +35,10 @@
 
         <liveTemplateMacro implementation="org.intellij.samples.live_templates.TitleCaseMacro"/>
 
+        <!-- 简单的Tool Window扩展实现       -->
+        <toolWindow id="Sample Calendar" secondary="true" icon="AllIcons.Toolwindows.WebToolWindow" anchor="right"
+                    factoryClass="org.intellij.samples.toolWindow.CalendarToolWindowFactory"/>
+
     </extensions>
 
 
