@@ -39,6 +39,12 @@
         <toolWindow id="Sample Calendar" secondary="true" icon="AllIcons.Toolwindows.WebToolWindow" anchor="right"
                     factoryClass="org.intellij.samples.toolWindow.CalendarToolWindowFactory"/>
 
+<!--        <colorPickerListenerFactory id="simple color" implementation="" order=""-->
+<!--        <codeInsight.lineMarkerProvider-->
+<!--                language=""-->
+<!--                implementationClass="org.intellij.samples.line_marker.MDColorLineMarkerProviderDescriptor"/>-->
+        <!--  自定义的ElementColorProvider,用于IDEA加入到内部的Provider列表中   -->
+        <colorProvider implementation="org.intellij.samples.line_marker.MDFileColorProvider"/>
     </extensions>
 
 
