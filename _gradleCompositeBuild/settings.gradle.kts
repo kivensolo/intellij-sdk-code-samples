@@ -4,22 +4,23 @@
 
 rootProject.name = "SDK Code Samples"
 
-includeBuild("../action_basics")
 includeBuild("../comparing_string_references_inspection")
 includeBuild("../conditional_operator_intention")
-includeBuild("../editor_basics")
 includeBuild("../facet_basics")
 includeBuild("../framework_basics")
-includeBuild("../kotlin_demo")
 includeBuild("../live_templates")
 includeBuild("../max_opened_projects")
 includeBuild("../module")
 includeBuild("../project_model")
 includeBuild("../project_view_pane")
 includeBuild("../project_wizard")
-includeBuild("../psi_demo")
 includeBuild("../run_configuration")
 includeBuild("../settings")
 includeBuild("../simple_language_plugin")
-includeBuild("../tool_window")
 includeBuild("../tree_structure_provider")
+
+includeBuild("../tool_window")      //OK
+includeBuild("../kotlin_demo")      //OK
+includeBuild("../editor_basics")    // OK
+includeBuild("../action_basics")    //OK
+includeBuild("../psi_demo")         //OK
