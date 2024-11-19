@@ -7,6 +7,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import com.intellij.ui.content.ContentManager;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,18 +16,59 @@ import java.awt.*;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class CalendarToolWindowFactory implements ToolWindowFactory, DumbAware {
+/**
+ * ToolWindow的实现方式
+ * 1. 实现ToolWindowFactory
+ */
+public class DemoToolWindowFactory implements ToolWindowFactory, DumbAware {
 
   @Override
   public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-    CalendarToolWindowContent toolWindowContent = new CalendarToolWindowContent(toolWindow);
+//    ContentFactory instance = ContentFactory.SERVICE.getInstance();
+    ContentFactory instance = ContentFactory.getInstance(); //2020的后续版本(至少可以明确是2022版本)，直接getInstance
 
-    ContentFactory instance = ContentFactory.SERVICE.getInstance();
-//    ContentFactory instance = ContentFactory.getInstance(); //2020的后续版本(至少可以明确是2022版本)，直接getInstance
-    Content content = instance.createContent(toolWindowContent.getContentPanel(), "Tab1", false);
-    toolWindow.getContentManager().addContent(content);
+    //通过ContentManger可以管理Tabs
+    ContentManager contentManager = toolWindow.getContentManager();
+
+    CalendarToolWindowContent toolWindowContent = new CalendarToolWindowContent(toolWindow);
+    JPanel contentPanel = toolWindowContent.getContentPanel();
+    Content baseContent = instance.createContent(contentPanel, "BasePlatform", false);
+    contentManager.addContent(baseContent);
+
+    ButtonsContent btnsContent = new ButtonsContent(toolWindow);
+    Content psiContent = instance.createContent(btnsContent.getContentPanel(), "PSI", false);
+    contentManager.addContent(psiContent);
   }
 
+  private static class ButtonsContent {
+    private final JButton dialogButton = new JButton("Dialog");
+    private final JPanel contentPanel = new JPanel();
+
+    public ButtonsContent(ToolWindow toolWindow) {
+      contentPanel.setLayout(new BorderLayout(0, 20));
+      contentPanel.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
+      contentPanel.add(createCalendarPanel(), BorderLayout.PAGE_START);
+//      contentPanel.add(createControlsPanel(toolWindow), BorderLayout.CENTER);
+      dialogButton.addActionListener(e -> {
+        //TODO 实现点击操作
+      });
+    }
+
+    @NotNull
+    private JPanel createCalendarPanel() {
+      JPanel calendarPanel = new JPanel();
+      calendarPanel.add(dialogButton);
+      return calendarPanel;
+    }
+
+    public JPanel getContentPanel() {
+      return contentPanel;
+    }
+  }
+
+  /**
+   * 模拟一个日历内容
+   */
   private static class CalendarToolWindowContent {
 
     private static final String CALENDAR_ICON_PATH = "/toolWindow/Calendar-icon.png";
