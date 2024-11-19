@@ -25,6 +25,10 @@ import javax.swing.Icon
 
 /**
  * 为markdown文件创建颜色识别的Gutter图标
+ * IDEA内部有一个ColorLineMarkerProvider，
+ * 不可再重复使用，否则会add两个颜色按钮选项到gutter.
+ *
+ * 暂时屏蔽这个。
  */
 class MDColorLineMarkerProviderDescriptor : LineMarkerProviderDescriptor() {
 //    val INSTANCE = MarkDownColorLineMarkerProvider()
@@ -71,8 +75,6 @@ class MDColorLineMarkerProviderDescriptor : LineMarkerProviderDescriptor() {
             object : GutterIconNavigationHandler<PsiElement> {
                 override fun navigate(e: MouseEvent, elt: PsiElement) {
                     if (!elt.isWritable) return
-                    //这里是可能为null哦
-                    val editor: Editor = PsiEditorUtil.findEditor(elt)!!
                     if (Registry.`is`("ide.new.color.picker")) {
                         //新版colorPicker
                         val relativePoint = RelativePoint(e.component, e.point)
@@ -85,6 +87,8 @@ class MDColorLineMarkerProviderDescriptor : LineMarkerProviderDescriptor() {
                             relativePoint, true
                         )
                     }else{
+                        //FIXME 这里是可能为null哦
+                        val editor: Editor = PsiEditorUtil.findEditor(elt)!!
                         //旧版colorPicker
                         val mColor = ColorChooser.chooseColor(
                             editor.project,

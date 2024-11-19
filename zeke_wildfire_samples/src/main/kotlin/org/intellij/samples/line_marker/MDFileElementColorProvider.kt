@@ -2,13 +2,17 @@ package org.intellij.samples.line_marker
 
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.ElementColorProvider
-import com.intellij.openapi.fileEditor.FileEditorManager
-import com.intellij.openapi.project.Project
 import com.intellij.psi.*
-import com.intellij.psi.util.PsiTreeUtil
 import java.awt.Color
 
-class MDFileColorProvider : ElementColorProvider{
+/**
+ * 这个自定义的ElementColorprovider扩展点会被IDE注册。
+ * 在XXXXLineMarkerProvider收集LineMarker信息的时候，会调用getColorFrom();
+ *
+ * 但是现在这个ElementColorProvider还存在bug:
+ * 1. 颜色选择后，文本会被全部复写;
+ */
+class MDFileElementColorProvider : ElementColorProvider{
     private val colorParser = HexColorParser(8)
     private lateinit var lastElement:PsiElement
     private var editorColorElementCahce:HashMap<Editor,PsiElement> = HashMap()
@@ -24,6 +28,7 @@ class MDFileColorProvider : ElementColorProvider{
 //        editorColorElementCahce[editor] = lastElement
 
         colorParser.apply {
+            //这个element.text是整个editor的，而不是单独一行的
             val parseredColor = this.parserColor(element.text)
             return parseredColor
         }

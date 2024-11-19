@@ -47,7 +47,7 @@
 <!--                language=""-->
 <!--                implementationClass="org.intellij.samples.line_marker.MDColorLineMarkerProviderDescriptor"/>-->
         <!--  自定义的ElementColorProvider,用于IDEA加入到内部的Provider列表中   -->
-        <colorProvider implementation="org.intellij.samples.line_marker.MDFileColorProvider"/>
+        <colorProvider implementation="org.intellij.samples.line_marker.MDFileElementColorProvider"/>
     </extensions>
 
 
