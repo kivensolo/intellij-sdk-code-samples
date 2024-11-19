@@ -8,6 +8,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * 定义自定义语言的文件类型(文件扩展后缀)、文件图标、文件描述
+ */
 public class SimpleFileType extends LanguageFileType {
 
   public static final SimpleFileType INSTANCE = new SimpleFileType();
