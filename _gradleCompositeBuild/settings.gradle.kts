@@ -8,7 +8,6 @@ includeBuild("../comparing_string_references_inspection")
 includeBuild("../conditional_operator_intention")
 includeBuild("../facet_basics")
 includeBuild("../framework_basics")
-includeBuild("../live_templates")
 includeBuild("../max_opened_projects")
 includeBuild("../module")
 includeBuild("../project_model")
@@ -19,6 +18,7 @@ includeBuild("../settings")
 includeBuild("../simple_language_plugin")
 includeBuild("../tree_structure_provider")
 
+includeBuild("../live_templates")   //OK
 includeBuild("../tool_window")      //OK
 includeBuild("../kotlin_demo")      //OK
 includeBuild("../editor_basics")    // OK
