@@ -23,6 +23,10 @@
     <!-- EP: 插件定义的扩展点.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
+        <!--  高亮过滤的扩展点 -->
+        <daemon.highlightInfoFilter
+                implementation="org.intellij.samples.hightlight.HelloWorldHightLightFilter"/>
+
         <!-- 编辑器中文本输入相关行为的处理扩展 -->
         <typedHandler implementation="org.intellij.samples.editor.MyTypedHandler"/>
 

@@ -9,7 +9,7 @@ plugins {
 }
 
 val ideVersion: String by extra
-val baseVersion: String by extra
+//val baseVersion: String by extra
 val javaVersion: String by extra
 val since: String by extra
 val until: String? by extra
@@ -28,7 +28,7 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2022.3.3")
+    version.set("2023.2")
     type.set("IC") // Target IDE Platform
 
     //依赖IDEA平台的java插件

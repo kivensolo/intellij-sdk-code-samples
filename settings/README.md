@@ -3,7 +3,7 @@
 
 ## Quickstart
 
-This project illustrates a custom Application-level Settings through the implementation of:
+这个项目演示了一个自定义的应用程序级别设置，通过实现：
 - `AppSettingsConfigurable` is analogous to a Controller in the MVC model - it interacts with the other two Settings classes and the IntelliJ Platform,
 - `AppSettingsState` is like a Model because it stores the Settings persistently,
 - `AppSettingsComponent` is similar to a View because it displays and captures edits to the values of the Settings.

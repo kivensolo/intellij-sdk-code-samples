@@ -10,7 +10,7 @@ import com.intellij.openapi.editor.markup.GutterIconRenderer
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiEditorUtil
-import com.intellij.ui.ColorChooser
+import com.intellij.ui.ColorChooserService
 import com.intellij.ui.ColorPicker
 import com.intellij.ui.awt.RelativePoint
 import com.intellij.ui.picker.ColorListener
@@ -78,7 +78,7 @@ class MDColorLineMarkerProviderDescriptor : LineMarkerProviderDescriptor() {
                     if (Registry.`is`("ide.new.color.picker")) {
                         //新版colorPicker
                         val relativePoint = RelativePoint(e.component, e.point)
-                        ColorPicker.showColorPickerPopup(
+                        ColorChooserService.instance.showPopup(
                             element.project, myColor, object : ColorListener {
                                 override fun colorChanged(color: Color, source: Any) {
                                     WriteAction.run<RuntimeException> { colorProvider.setColorTo(elt, color) }
@@ -90,7 +90,7 @@ class MDColorLineMarkerProviderDescriptor : LineMarkerProviderDescriptor() {
                         //FIXME 这里是可能为null哦
                         val editor: Editor = PsiEditorUtil.findEditor(elt)!!
                         //旧版colorPicker
-                        val mColor = ColorChooser.chooseColor(
+                        val mColor =  ColorChooserService.instance.showDialog(
                             editor.project,
                             editor.component,
                             IdeBundle.message("dialog.title.choose.color", *arrayOfNulls(0)),
@@ -118,7 +118,7 @@ class MDColorLineMarkerProviderDescriptor : LineMarkerProviderDescriptor() {
         }
 
         override fun getCommonTooltip(infos: List<MergeableLineMarkerInfo<*>?>): Function<in PsiElement, String> {
-            return FunctionUtil.nullConstant()
+            return super.getCommonTooltip(infos)
         }
     }
 
