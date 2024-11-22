@@ -95,7 +95,7 @@
 
             <!--   PSI导航基础Demo   -->
             <action id="PsiNavigationDemo"
-                    class="org.intellij.samples.psi.PsiNavigationDemoAction"
+                    class="org.intellij.samples.psi.PsiNavigationTopAndBottomAction"
                     text="PSI Navigation Demo...">
             </action>
         </group>
