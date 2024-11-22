@@ -47,10 +47,7 @@ public class PsiNavigationTopAndBottomAction extends AnAction {
         }
         final StringBuilder infoBuilder = new StringBuilder();
         // 获取 PsiFile 的名称，包括扩展名
-        String fileName = psiFile.getName();
-        infoBuilder.append("所属文件: ")
-                .append(fileName)
-                .append("\n");
+        infoBuilder.append("所属文件: ").append(psiFile.getName()).append("\n");
 
         // 1. 获取偏移量
         int offset = editor.getCaretModel().getOffset();
@@ -87,8 +84,7 @@ public class PsiNavigationTopAndBottomAction extends AnAction {
         PsiMethod containingMethod = PsiTreeUtil.getParentOfType(element, PsiMethod.class);
         infoBuilder.append("所在方法: ");
         if(containingMethod == null) {
-            infoBuilder.append("none");
-            infoBuilder.append("\n");
+            infoBuilder.append("none").append("\n");
             return false;
         }
         infoBuilder.append(containingMethod.getName());
@@ -96,9 +92,7 @@ public class PsiNavigationTopAndBottomAction extends AnAction {
         // 获取PsiMethod对象的参数列表
         JvmParameter[] parameters = containingMethod.getParameters();
         if (parameters.length > 0) {
-            infoBuilder.append("参数个数:")
-                    .append(parameters.length)
-                    .append("\n");
+            infoBuilder.append("参数个数:").append(parameters.length).append("\n");
         }
         //有父级方法存在的话，查找方法所在的类
         PsiClass containingClass = containingMethod.getContainingClass();
@@ -129,8 +123,7 @@ public class PsiNavigationTopAndBottomAction extends AnAction {
     private void navigationFromBottomToTop(PsiElement element,StringBuilder infoBuilder) {
         //向上查询所在的类
         PsiClass containingClass = PsiTreeUtil.getParentOfType(element, PsiClass.class);
-        infoBuilder
-                .append("所在类: ")
+        infoBuilder.append("所在类: ")
                 .append(containingClass != null ? containingClass.getName() : "none")
                 .append("\n");
 
