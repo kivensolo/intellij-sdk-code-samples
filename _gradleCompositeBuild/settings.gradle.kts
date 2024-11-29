@@ -14,13 +14,13 @@ includeBuild("../project_model")
 includeBuild("../project_view_pane")
 includeBuild("../project_wizard")
 includeBuild("../run_configuration")
-includeBuild("../settings")
 includeBuild("../simple_language_plugin")
 includeBuild("../tree_structure_provider")
 
-includeBuild("../live_templates")   //OK
-includeBuild("../tool_window")      //OK
-includeBuild("../kotlin_demo")      //OK
-includeBuild("../editor_basics")    // OK
-includeBuild("../action_basics")    //OK
-includeBuild("../psi_demo")         //OK
+//includeBuild("../live_templates")   //OK
+//includeBuild("../tool_window")      //OK
+//includeBuild("../kotlin_demo")      //OK
+//includeBuild("../editor_basics")    // OK
+//includeBuild("../action_basics")    //OK
+//includeBuild("../psi_demo")         //OK
+//includeBuild("../settings")         //OK
