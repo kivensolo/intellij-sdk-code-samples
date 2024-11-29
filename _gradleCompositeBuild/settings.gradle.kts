@@ -23,4 +23,3 @@ includeBuild("../tree_structure_provider")
 //includeBuild("../editor_basics")    // OK
 //includeBuild("../action_basics")    //OK
 //includeBuild("../psi_demo")         //OK
-//includeBuild("../settings")         //OK
