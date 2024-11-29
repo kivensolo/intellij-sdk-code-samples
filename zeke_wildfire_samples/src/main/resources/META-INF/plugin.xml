@@ -52,6 +52,13 @@
 <!--                implementationClass="org.intellij.samples.line_marker.MDColorLineMarkerProviderDescriptor"/>-->
         <!--  自定义的ElementColorProvider,用于IDEA加入到内部的Provider列表中   -->
         <colorProvider implementation="org.intellij.samples.line_marker.MDFileElementColorProvider"/>
+
+
+        <!--  application配置&持久化  -->
+        <applicationConfigurable parentId="tools" instance="org.intellij.samples.setting.persistent.SimpleSettingsConfigurable"
+                id="com.intellij.wildfire.SimpleSettingsConfigurable"
+                displayName="SDK: Application Settings Example"/>
+        <applicationService serviceImplementation="org.intellij.samples.setting.persistent.SimpleSettingsState"/>
     </extensions>
 
 
