@@ -59,6 +59,12 @@
                 id="com.intellij.wildfire.SimpleSettingsConfigurable"
                 displayName="SDK: Application Settings Example"/>
         <applicationService serviceImplementation="org.intellij.samples.setting.persistent.SimpleSettingsState"/>
+
+        <!--   文件索引的扩展点     -->
+        <fileBasedIndex implementation="org.intellij.samples.index.SimpleJavaMethodFileIndex"/>
+
+        <!--   注册导航处理器     -->
+        <gotoDeclarationHandler implementation="org.intellij.samples.index.JsonGotoDeclarationHandler"/>
     </extensions>
 
 
