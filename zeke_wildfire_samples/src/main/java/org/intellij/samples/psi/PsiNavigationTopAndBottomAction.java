@@ -47,7 +47,7 @@ public class PsiNavigationTopAndBottomAction extends AnAction {
         }
         final StringBuilder infoBuilder = new StringBuilder();
         // 获取 PsiFile 的名称，包括扩展名
-        infoBuilder.append("所属文件: ").append(psiFile.getName()).append("\n");
+        infoBuilder.append("根据ActionEvent获取PsiFile文件名称: ").append(psiFile.getName()).append("\n");
 
         // 1. 获取偏移量
         int offset = editor.getCaretModel().getOffset();
@@ -57,6 +57,9 @@ public class PsiNavigationTopAndBottomAction extends AnAction {
         infoBuilder.append("插入符所在元素: [").append(element).append("]\n");
         // 3. 访问它的前后关系，可以使用PSI树进行查找
         if (element != null) {
+            // 因为这个AnActionEvent行为，是必须editor和psiFile都存在的情况下，才是enable的，所以不可能为null
+            String psiContainingFileName = element.getContainingFile().getName();
+            infoBuilder.append("根据插入符元素反查文件名称: ").append(psiContainingFileName).append("\n");
             boolean isInMethod = navigationFromTopToBottom(element, infoBuilder);
             if(!isInMethod){
                 navigationFromBottomToTop(element, infoBuilder);
