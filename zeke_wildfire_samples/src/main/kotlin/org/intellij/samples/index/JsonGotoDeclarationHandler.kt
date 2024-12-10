@@ -1,12 +1,15 @@
 package org.intellij.samples.index
 
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandler
+import com.intellij.json.psi.JsonElement
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiMethod
 import com.intellij.util.containers.toArray
+import org.jetbrains.android.facet.AndroidFacet
 
 
 /**
@@ -26,6 +29,18 @@ class JsonGotoDeclarationHandler: GotoDeclarationHandler {
         editor: Editor?
     ): Array<PsiElement>? {
         if(sourceElement == null) return null
+
+        if(sourceElement !is JsonElement){
+            //检测这个元素是不是Json的Element,如果不是，就return
+            return null
+        }
+        val file: PsiFile = sourceElement.containingFile
+        println("元素所在的psi文件为：${file.name}")
+
+        val instance:AndroidFacet? = AndroidFacet.getInstance(sourceElement)
+        if(instance == null){
+            println("元素无法创建出AndroidFacet")
+        }
 
         val text = sourceElement.text
         var methodTargetName = ""

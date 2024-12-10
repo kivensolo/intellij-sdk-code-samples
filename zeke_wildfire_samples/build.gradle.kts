@@ -31,8 +31,15 @@ intellij {
     version.set("2023.2")
     type.set("IC") // Target IDE Platform
 
-    //依赖IDEA平台的java插件
-    plugins.set(listOf("com.intellij.java"))
+    /**
+     * 依赖IDEA平台的java插件和android插件
+     * 有了android插件的依赖，才可以使用 org.jetbrains.android.facet.AndroidFacet 等类
+     *
+     * 其他的还有kotlin，可以使用org.jetbrains.kotlin.lexer.KtTokens等类
+     */
+    val pluginList = listOf("com.intellij.java", "android")
+    plugins.set(pluginList)
+    instrumentCode.set(false)
 }
 
 java {
