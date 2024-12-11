@@ -1,6 +1,7 @@
 package org.intellij.samples.psi.reference
 
 import com.intellij.json.psi.JsonStringLiteral
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceProvider
@@ -17,10 +18,11 @@ class CustomSchemeJsonReferenceProvider: PsiReferenceProvider() {
         if(element !is JsonStringLiteral){
             return PsiReference.EMPTY_ARRAY
         }
-        val text = element.text
-        val value = element.value
-        if(value.startsWith("zeke://")){
-            return arrayOf(MyJsonSimpleUriPsiReference(element))
+        //json字符串内容
+        val jsonStringContent = element.value
+        if(jsonStringContent.startsWith("zeke://")){
+            val range = TextRange.create("zeke://".length +  1,jsonStringContent.length + 1)
+            return arrayOf(SimpleJsonReference(element,range))
         }
         return PsiReference.EMPTY_ARRAY
     }
