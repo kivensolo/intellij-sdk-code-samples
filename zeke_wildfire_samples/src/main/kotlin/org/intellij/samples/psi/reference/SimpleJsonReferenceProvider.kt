@@ -10,7 +10,7 @@ import com.intellij.util.ProcessingContext
 /**
  * 创建引用提供者
  */
-class CustomSchemeJsonReferenceProvider: PsiReferenceProvider() {
+class SimpleJsonReferenceProvider: PsiReferenceProvider() {
     /**
      * 根据PsiElement进行只有逻辑处理，满足条件后，返回自定义的PsiReference
      */

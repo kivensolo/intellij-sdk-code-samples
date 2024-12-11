@@ -2,9 +2,8 @@ package org.intellij.samples.psi.reference
 
 import com.intellij.json.psi.JsonStringLiteral
 import com.intellij.patterns.PlatformPatterns
-import com.intellij.psi.*
-import com.intellij.psi.impl.source.resolve.ResolveCache
-import com.intellij.util.ProcessingContext
+import com.intellij.psi.PsiReferenceContributor
+import com.intellij.psi.PsiReferenceRegistrar
 
 /**
  * 最基本的引用提供者
@@ -12,7 +11,7 @@ import com.intellij.util.ProcessingContext
  * [com.intellij.psi.PsiReferenceContributor] 用于注册自定义的 [com.intellij.psi.PsiReferenceProvider]
  * ，以便在特定的上下文中识别和处理自定义的引用。
  */
-class MySimpleURIReferenceContributor: PsiReferenceContributor()  {
+class SimpleJsonUReferenceContributor: PsiReferenceContributor()  {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         /**
          * 注册引用提供者
@@ -22,6 +21,15 @@ class MySimpleURIReferenceContributor: PsiReferenceContributor()  {
          * 参见{@link com.intellij.patterns.StandardPatterns}、
          * {@link com.intellij.patterns.PlatformPatterns}及其扩展点。
          */
-        registrar.registerReferenceProvider(PlatformPatterns.psiElement(), CustomSchemeJsonReferenceProvider())
+//        registrar.registerReferenceProvider(
+//            PlatformPatterns.psiElement(), // 匹配所有psi元素
+//            CustomSchemeJsonReferenceProvider()
+//        )
+        //只需要匹配Json的字符串文本
+        registrar.registerReferenceProvider(
+            PlatformPatterns.psiElement(JsonStringLiteral::class.java),
+            ZekeProtocolReferenceProvider(),
+            PsiReferenceRegistrar.LOWER_PRIORITY
+        )
     }
 }

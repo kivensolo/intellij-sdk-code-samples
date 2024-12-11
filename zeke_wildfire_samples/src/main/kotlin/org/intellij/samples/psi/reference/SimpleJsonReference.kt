@@ -21,10 +21,10 @@ class SimpleJsonReference(
     element: PsiElement,
     textRange: TextRange
 ): PsiReferenceBase<PsiElement>(element,textRange), PsiPolyVariantReference {
-    private val urlkey: String
+    private val urlContent: String
 
     init{
-        urlkey = element.text.substring(textRange.startOffset, textRange.endOffset)
+        urlContent = element.text.substring(textRange.startOffset, textRange.endOffset)
     }
     override fun resolve(): PsiElement? {
         val resolveResults = multiResolve(false)
@@ -63,7 +63,7 @@ class SimpleJsonReference(
     }
 
     fun getUrl(): String {
-        return urlkey
+        return urlContent
     }
 
     /**
@@ -76,7 +76,6 @@ class SimpleJsonReference(
         if (incompleteCode) {
             return ResolveResult.EMPTY_ARRAY
         }
-
         val project:Project = myElement.project
         //在工程中招Json类型文件的虚拟文件
         val virtualFiles:Collection<VirtualFile> = FileTypeIndex.getFiles(Json5FileType.INSTANCE, GlobalSearchScope.allScope(project))
