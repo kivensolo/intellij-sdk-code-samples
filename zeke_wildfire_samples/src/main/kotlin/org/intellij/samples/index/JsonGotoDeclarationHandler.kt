@@ -1,15 +1,14 @@
 package org.intellij.samples.index
 
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandler
-import com.intellij.json.psi.JsonElement
+import com.intellij.json.JsonElementTypes
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiMethod
+import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.util.containers.toArray
-import org.jetbrains.android.facet.AndroidFacet
 
 
 /**
@@ -30,26 +29,17 @@ class JsonGotoDeclarationHandler: GotoDeclarationHandler {
     ): Array<PsiElement>? {
         if(sourceElement == null) return null
 
-        if(sourceElement !is JsonElement){
-            //检测这个元素是不是Json的Element,如果不是，就return
+        if(sourceElement !is LeafPsiElement){
+            //检测这个元素是不是叶子节点的
             return null
         }
-        val file: PsiFile = sourceElement.containingFile
-        println("元素所在的psi文件为：${file.name}")
-
-        val instance:AndroidFacet? = AndroidFacet.getInstance(sourceElement)
-        if(instance == null){
-            println("元素无法创建出AndroidFacet")
+        if(sourceElement.elementType != JsonElementTypes.DOUBLE_QUOTED_STRING){
+            //检测这个叶子节点是不是jSON的双引号
+            return null
         }
-
         val text = sourceElement.text
-        var methodTargetName = ""
-        if(text.startsWith("\"") and  text.endsWith("\"")){
-            methodTargetName = text.substring(1, text.length - 1)
-        }
-        if(methodTargetName == ""){
-            return null
-        }
+        //remove double quoted
+        val methodTargetName = text.substring(1, text.length - 1)
         val project: Project = sourceElement.project
         val methods: Collection<PsiMethod>? = SimpleJavaMethodFileIndex.getMethodsPsiByName(project, methodTargetName)
 
