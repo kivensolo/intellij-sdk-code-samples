@@ -19,9 +19,9 @@ import org.jetbrains.kotlin.idea.editor.fixers.start
  */
 class AndroidAssetsURIReference(
     psiElement: PsiElement,
-    val textRange: TextRange,
-    private val prifixEnd: Int = textRange.endOffset
-): PsiReferenceBase<PsiElement>(psiElement,textRange), PsiPolyVariantReference {
+    elementTextRange: TextRange,
+    val prifixRange: TextRange
+): PsiReferenceBase<PsiElement>(psiElement,elementTextRange), PsiPolyVariantReference {
 
     override fun resolve(): PsiElement? {
         val resolveResults = multiResolve(false)
@@ -47,11 +47,12 @@ class AndroidAssetsURIReference(
         val androidFacet = AndroidFacet.getInstance(element) ?: return ResolveResult.EMPTY_ARRAY
         val rangeInElement = rangeInElement
 
-        if (rangeInElement.startOffset < prifixEnd) {
+        //FIXME 为什么有这个逻辑？ 已经在AndroidAssetsURIReferenceProvider中判断了 uriString.startsWith(prefix)
+        if (rangeInElement.endOffset <  prifixRange.startOffset) {
             return androidFacet.getAssetsDirPSIResolve().toTypedArray()
         }
-        val text = myElement.text
-        val relativePath = text.substring(prifixEnd, rangeInElement.endOffset)
+        val elementFullText = myElement.text
+        val relativePath = elementFullText.substring( prifixRange.endOffset, rangeInElement.endOffset)
         val psiFilesInAssets = androidFacet.findFilesInAssets(relativePath)
 
         return psiFilesInAssets.map { PsiElementResolveResult(it) }.toTypedArray()

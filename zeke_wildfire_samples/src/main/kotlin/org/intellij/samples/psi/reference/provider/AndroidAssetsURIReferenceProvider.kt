@@ -7,6 +7,9 @@ import com.intellij.util.ProcessingContext
 import org.intellij.samples.psi.reference.AndroidAssetsURIReference
 import org.intellij.samples.psi.reference.IURIPrefixHandler
 
+/**
+ * 针对Android工程，进行相关资源(如assets)的引用提供
+ */
 abstract class AndroidAssetsURIReferenceProvider<T : PsiElement> : TypedReferenceProvider<T>(),
     IURIPrefixHandler<T> {
 
@@ -16,20 +19,26 @@ abstract class AndroidAssetsURIReferenceProvider<T : PsiElement> : TypedReferenc
         val uriString = getURIText(element)?:return PsiReference.EMPTY_ARRAY
         val prefix:String? = prefixes.find { prefix -> uriString.startsWith(prefix) }
 
-        return prefix?.let {fullPath ->
+        return prefix?.let {prefixPath ->
             // eg: “<prefix>/plugin/settingV3/images/wifi/tip_wifi_close.png”
-            var relativePath = uriString.substring(fullPath.length)
+            var relativePath = uriString.substring(prefixPath.length)
             if (relativePath.startsWith('/')) {
                 relativePath = relativePath.substring(1)
             }
             // eg: “plugin/settingV3/images/wifi/tip_wifi_close.png”
-            val prefixStart = element.text.indexOf(fullPath)
-            val prefixEnd = prefixStart + fullPath.length
 
+            //Build prefix textRange info
+            val prefixStart = element.text.indexOf(prefixPath)
+            val prefixEnd = prefixStart + prefixPath.length
             val prefixTextRange = TextRange(prefixStart, prefixEnd)
+
             val resultReferenceList = mutableListOf<PsiReference>(
                 //Prefix psiDirectory reference
-                AndroidAssetsURIReference(psiElement = element, textRange = prefixTextRange)
+                AndroidAssetsURIReference(
+                    psiElement = element,
+                    elementTextRange = prefixTextRange,
+                    prifixRange = prefixTextRange
+                )
             )
             if (relativePath.isEmpty()) {
                 return@let resultReferenceList.toTypedArray()
@@ -37,16 +46,21 @@ abstract class AndroidAssetsURIReferenceProvider<T : PsiElement> : TypedReferenc
 
             var startOffset = prefixTextRange.endOffset + 1
             var endOffset: Int
-            // 以分隔符将路径进行分割保存
+            /*
+             * 以分隔符把路径进行分别处理，将每一个路径段处理为单独的引用
+             * 最终把引用转为PSI数组返回
+             */
             relativePath.split("/").mapTo(resultReferenceList) { segment: String ->
                 // 按照多级路径，创建多个 androidAssetsURIReference
                 endOffset = startOffset + segment.length
+                //TODO 可以做一个开关设置
                 val androidAssetsURIReference = AndroidAssetsURIReference(
                     psiElement = element,
-                    textRange = TextRange(startOffset, endOffset),
-                    prifixEnd = prefixEnd
+                    elementTextRange = TextRange(prefixTextRange.startOffset, endOffset), //引用元素是连续选择的内容
+//                  referenceTextRange = TextRange(startOffset, endOffset), //引用元素是单个路径片段内容
+                    prifixRange = prefixTextRange
                 )
-                startOffset = endOffset + 1 //move to next segment
+                startOffset = (endOffset + 1) //move to next segment
                 androidAssetsURIReference
             }.toTypedArray()
         } ?: PsiReference.EMPTY_ARRAY

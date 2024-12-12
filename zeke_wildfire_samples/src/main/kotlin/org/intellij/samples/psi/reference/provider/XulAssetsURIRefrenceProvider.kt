@@ -7,7 +7,8 @@ import com.intellij.psi.xml.XmlTag
 import com.intellij.psi.xml.XmlToken
 
 /**
- * xulApp资源规范的引用提供者
+ * 可应用于xulApp框架的资源规范的引用提供者，
+ * 主要对特定的scheme前缀资源路径做引用解析。
  */
 class XulAssetsURIRefrenceProvider: AndroidAssetsURIReferenceProvider<PsiElement>() {
     override val prefixes: List<String>
