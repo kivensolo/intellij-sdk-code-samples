@@ -11,7 +11,8 @@ import com.intellij.psi.impl.FakePsiElement
 import com.intellij.util.ProcessingContext
 
 /**
- * 一个zeke://协议的引用提供，实现点击跳转打开浏览器。
+ * 一个zeke://协议的引用提供，若浏览器设置为首选模式，则使用首选浏览器进行跳转操作。
+ * 如果没有设置首选模式，那就让windows自己弹窗选择目标应用。
  */
 class ZekeProtocolReferenceProvider: PsiReferenceProvider() {
 

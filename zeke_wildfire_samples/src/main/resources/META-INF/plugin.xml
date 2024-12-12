@@ -24,8 +24,8 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <!--  高亮过滤的扩展点 -->
-<!--        <daemon.highlightInfoFilter-->
-<!--                implementation="org.intellij.samples.hightlight.HelloWorldHightLightFilter"/>-->
+        <daemon.highlightInfoFilter
+                implementation="org.intellij.samples.hightlight.SimpleCustomJsonKeyHightLightFilter"/>
 
         <!-- 编辑器中文本输入相关行为的处理扩展 -->
 <!--        <typedHandler implementation="org.intellij.samples.editor.MyTypedHandler"/>-->
@@ -68,8 +68,8 @@
 
         <!--   PSI: 引用贡献者     -->
         <psi.referenceContributor
-                implementation="org.intellij.samples.psi.reference.MySimpleURIReferenceContributor"
-                language=""/>
+                implementation="org.intellij.samples.psi.reference.SimpleJsonUReferenceContributor"
+                language="JSON"/>
     </extensions>
 
 
