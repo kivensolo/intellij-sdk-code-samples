@@ -15,10 +15,12 @@
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
 <!--    <description></description>-->
 
-    <!-- 基础平台模块依赖 -->
+    <!-- 平台模块依赖: 基础框架 + 特定框架 -->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
 
     <!-- EP: 插件定义的扩展点.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
@@ -68,8 +70,8 @@
 
         <!--   PSI: 引用贡献者     -->
         <psi.referenceContributor
-                implementation="org.intellij.samples.psi.reference.SimpleJsonUReferenceContributor"
-                language="JSON"/>
+                implementation="org.intellij.samples.psi.reference.contributor.MyReferenceContributor"
+                language=""/>
     </extensions>
 
 

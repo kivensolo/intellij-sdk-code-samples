@@ -1,4 +1,4 @@
-package org.intellij.samples.psi.reference
+package org.intellij.samples.psi.reference.provider
 
 import com.intellij.diagnostic.LoadingState
 import com.intellij.ide.browsers.*
@@ -14,7 +14,7 @@ import com.intellij.util.ProcessingContext
  * 一个zeke://协议的引用提供，若浏览器设置为首选模式，则使用首选浏览器进行跳转操作。
  * 如果没有设置首选模式，那就让windows自己弹窗选择目标应用。
  */
-class ZekeProtocolReferenceProvider: PsiReferenceProvider() {
+class ZekeProtocolReferenceProvider: TypedReferenceProvider<PsiElement>() {
 
     override fun acceptsTarget(target: PsiElement): Boolean {
         return false //自定义协议不指向任何真正的PsiElement
@@ -23,7 +23,7 @@ class ZekeProtocolReferenceProvider: PsiReferenceProvider() {
     /**
      * 根据PsiElement进行只有逻辑处理，满足条件后，返回自定义的PsiReference
      */
-    override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
+    override fun getReferences(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
         if(element !is JsonStringLiteral) return PsiReference.EMPTY_ARRAY
         val parent:PsiElement = element.parent
         if (parent !is JsonProperty) return PsiReference.EMPTY_ARRAY
@@ -31,7 +31,7 @@ class ZekeProtocolReferenceProvider: PsiReferenceProvider() {
         val jsonValueElement: JsonValue? = parent.value
         if(element != jsonValueElement) return PsiReference.EMPTY_ARRAY
         // JSON may be used as data format for huge strings
-        if (element.getTextLength() > 1000) return PsiReference.EMPTY_ARRAY
+        if (element.textLength > 1000) return PsiReference.EMPTY_ARRAY
         if (!element.textContains(':')) return PsiReference.EMPTY_ARRAY;
 
         //json字符串内容
@@ -54,11 +54,11 @@ class ZekeProtocolReferenceProvider: PsiReferenceProvider() {
         private val element: PsiElement,
         private var textRange: TextRange?
     ): PsiReferenceBase<PsiElement>(element,textRange) {
-        private var urlContent: String = ""
+        private var stringContent: String = ""
 
         init {
             textRange?.let {
-                urlContent = element.text.substring(it.startOffset, it.endOffset)
+                stringContent = element.text.substring(it.startOffset, it.endOffset)
             }
         }
 
@@ -78,7 +78,7 @@ class ZekeProtocolReferenceProvider: PsiReferenceProvider() {
         }
 
         fun getUrl(): String {
-            return urlContent
+            return stringContent
         }
 
         /**

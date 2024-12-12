@@ -37,7 +37,12 @@ intellij {
      *
      * 其他的还有kotlin，可以使用org.jetbrains.kotlin.lexer.KtTokens等类
      */
-    val pluginList = listOf("com.intellij.java", "android")
+    val pluginList = listOf(
+        "com.intellij.java",
+        "Kotlin",         //如果不添加kotlin依赖，则有些扩展api调用会报错，如TextRange.end
+        "android",
+        "PsiViewer:232.2" // 可以使沙箱自动安装PsiViewer,版本注意选择和目标沙箱兼容的版本
+    )
     plugins.set(pluginList)
     instrumentCode.set(false)
 }
