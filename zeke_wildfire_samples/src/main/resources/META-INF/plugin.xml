@@ -68,10 +68,17 @@
         <!--   注册导航处理器     -->
         <gotoDeclarationHandler implementation="org.intellij.samples.index.JsonGotoDeclarationHandler"/>
 
-        <!--   PSI: 引用贡献者     -->
+        <!-- ================ PSI: 引用贡献者 ================ -->
         <psi.referenceContributor
                 implementation="org.intellij.samples.psi.reference.contributor.MyReferenceContributor"
                 language=""/>
+
+        <!-- ================ 自动补全 ================ -->
+        <completion.contributor
+            language="any"
+            implementationClass="org.intellij.samples.completion.AndroidAssetsPathCompletionContributor"
+            id="androidAssetsFilePath" order="first"/>
+
     </extensions>
 
 
