@@ -14,6 +14,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 定义一个引用类 SimpleReference.java 来解析属性的用法。
+ *
+ * 这需要扩展 PsiReferenceBase 并实现 PsiPolyVariantReference接口。
+ * PsiPolyVariantReference使引用能够解析到多个元素或解析有效解析用例的超集的结果。
+ */
 public class SimpleReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 
   private final String key;

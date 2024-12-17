@@ -5,6 +5,9 @@ package org.intellij.sdk.language;
 import com.intellij.lang.Commenter;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * 自定义语言的注释
+ */
 public class SimpleCommenter implements Commenter {
 
   @Nullable
