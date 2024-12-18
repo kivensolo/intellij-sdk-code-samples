@@ -2,7 +2,7 @@ package org.intellij.samples.psi.reference
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.*
-import org.intellij.utils.findFilesInAssets
+import org.intellij.samples.utils.findFilesInAssets
 import org.jetbrains.android.facet.AndroidFacet
 
 /**

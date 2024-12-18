@@ -1,4 +1,4 @@
-package org.intellij.utils
+package org.intellij.samples.utils
 
 import com.android.tools.idea.projectsystem.sourceProviders
 import com.intellij.psi.PsiDirectory

@@ -15,8 +15,8 @@ import com.intellij.psi.xml.XmlText
 import com.intellij.psi.xml.XmlToken
 import com.intellij.util.PlatformIcons
 import com.intellij.util.ProcessingContext
-import org.intellij.utils.CommonUtils
 import org.intellij.samples.psi.reference.AndroidAssetsURIReference
+import org.intellij.samples.utils.CommonUtils
 import org.jetbrains.android.facet.AndroidFacet
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry
