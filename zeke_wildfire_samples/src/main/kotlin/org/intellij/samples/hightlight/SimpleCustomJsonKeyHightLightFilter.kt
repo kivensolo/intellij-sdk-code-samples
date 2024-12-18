@@ -9,8 +9,8 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 
 
 /**
- *
- * 简单的自定义Json文件key高亮功能的Demo
+ * 简单的自定义Json文件key高亮过滤功能
+ * 正常情况下，json文件的字符串key会在IDEA中高亮，但是我加了一个条件，如果key为DisableHightlight，就不高亮
  */
 class SimpleCustomJsonKeyHightLightFilter : BaseHighlightInfoFilter() {
 
