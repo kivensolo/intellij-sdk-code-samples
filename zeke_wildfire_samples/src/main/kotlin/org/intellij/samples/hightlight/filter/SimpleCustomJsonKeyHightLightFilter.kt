@@ -1,11 +1,11 @@
-package org.intellij.samples.hightlight
+package org.intellij.samples.hightlight.filter
 
 import com.intellij.codeInsight.daemon.impl.HighlightInfo
-import com.intellij.codeInsight.daemon.impl.HighlightInfoFilter
-import com.intellij.json.JsonElementTypes
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.source.tree.LeafPsiElement
+import com.intellij.psi.impl.source.tree.injected.changesHandler.range
+import org.intellij.samples.hightlight.filter.strategy.HighlightFilterStrategyManager
 
 
 /**
@@ -19,12 +19,7 @@ class SimpleCustomJsonKeyHightLightFilter : BaseHighlightInfoFilter() {
         if(psiElement !is LeafPsiElement){
             return false // 元素类型不是LeafPsiElement，则不做处理，不拦截
         }
-        return isFilterHighlightInfo(psiElement)
-    }
-
-    private fun isFilterHighlightInfo(psiElement:PsiElement):Boolean{
-        val content = psiElement.text
-        val substring = content.substring(1, content.length - 1)
-        return substring == "DisableHightlight"
+        //实际开发中，更多的是根据highlightInfo的各种属性进行处理。这里通过策略来处理，
+        return HighlightFilterStrategyManager.filter(highlightInfo, file)
     }
 }

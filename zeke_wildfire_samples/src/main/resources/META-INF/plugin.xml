@@ -27,7 +27,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <!--  高亮过滤的扩展点 -->
         <daemon.highlightInfoFilter
-                implementation="org.intellij.samples.hightlight.SimpleCustomJsonKeyHightLightFilter"/>
+                implementation="org.intellij.samples.hightlight.filter.SimpleCustomJsonKeyHightLightFilter"/>
 
         <!-- 编辑器中文本输入相关行为的处理扩展 -->
 <!--        <typedHandler implementation="org.intellij.samples.editor.MyTypedHandler"/>-->

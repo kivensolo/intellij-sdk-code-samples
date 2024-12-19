@@ -1,4 +1,4 @@
-package org.intellij.samples.hightlight
+package org.intellij.samples.hightlight.filter
 
 import com.intellij.codeInsight.daemon.impl.HighlightInfo
 import com.intellij.codeInsight.daemon.impl.HighlightInfoFilter
