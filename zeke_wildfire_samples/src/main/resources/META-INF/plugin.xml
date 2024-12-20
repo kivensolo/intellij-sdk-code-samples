@@ -70,8 +70,14 @@
 
         <!-- ================ PSI: 引用贡献者 ================ -->
         <psi.referenceContributor
-                implementation="org.intellij.samples.psi.reference.contributor.MyReferenceContributor"
+                implementation="org.intellij.samples.psi.reference.contributor.MySimpleReferenceContributor"
                 language=""/>
+        <psi.referenceContributor
+                implementation="org.intellij.samples.psi.reference.contributor.MyJavaReferenceContributor"
+                language=""/>
+<!--        <psi.referenceContributor-->
+<!--                implementation="org.intellij.samples.psi.reference.contributor.MyKtReferenceContributor"-->
+<!--                language="kotlin"/>-->
 
         <!-- ================ 自动补全 ================ -->
         <completion.contributor

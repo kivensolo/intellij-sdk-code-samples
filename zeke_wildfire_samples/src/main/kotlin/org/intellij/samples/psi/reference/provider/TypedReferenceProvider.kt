@@ -1,11 +1,9 @@
 package org.intellij.samples.psi.reference.provider
 
-import com.intellij.json.psi.JsonStringLiteral
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceProvider
 import com.intellij.util.ProcessingContext
-import java.lang.ClassCastException
 
 /**
  * 简单封装的引用提供者，对实现类进行了异常捕获的封装和类型校验的封装
@@ -18,5 +16,9 @@ abstract class TypedReferenceProvider<T : PsiElement> : PsiReferenceProvider() {
             PsiReference.EMPTY_ARRAY
         }
     }
+
+    /**
+     * 根据PsiElement获取提供的Psi引用数组
+     */
     abstract fun getReferences(element: T, context: ProcessingContext): Array<PsiReference>
 }
